@@ -23,13 +23,11 @@ public class MyProgressView extends View {
 
     private int width = 200;
     private int height = 200;
-
     private int max = 100;    //最大进度
     private int progress = 50;     //进度
     private int currentProgress = 0;     //变化的进度
     private int count = 50;
     private boolean isSingleTap = false;
-
 
     private Paint circlePaint;  //画圆；
     private Paint progressPaint; //画重叠的部分
@@ -78,7 +76,6 @@ public class MyProgressView extends View {
 
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         bitmapCanvas = new Canvas(bitmap);
-
 
         final GestureDetector detector = new GestureDetector(new MyGestureDetectorListener());
         setOnTouchListener(new OnTouchListener() {
@@ -130,9 +127,12 @@ public class MyProgressView extends View {
             count--;
             if (count >= 0) {
                 invalidate();
-                handler.postDelayed(singleTapRunnable, 200);
+
+                postDelayed(singleTapRunnable, 200);
+               // handler.postDelayed(singleTapRunnable, 200);
             } else {
-                handler.removeCallbacks(singleTapRunnable);
+
+               // handler.removeCallbacks(singleTapRunnable);
                 count = 50;
             }
         }
@@ -144,9 +144,10 @@ public class MyProgressView extends View {
             currentProgress++;
             if (currentProgress <= progress) {
                 invalidate();
-                handler.postDelayed(doubleTapRunnable, 50);
+                postDelayed(doubleTapRunnable, 50);
+               // handler.postDelayed(doubleTapRunnable, 50);
             } else {
-                handler.removeCallbacks(doubleTapRunnable);
+               // handler.removeCallbacks(doubleTapRunnable);
                 currentProgress = 0;
             }
         }
@@ -204,5 +205,6 @@ public class MyProgressView extends View {
         bitmapCanvas.drawText(text, x1, y1, textPaint);
         canvas.drawBitmap(bitmap, 0, 0, null);
     }
+
 
 }
