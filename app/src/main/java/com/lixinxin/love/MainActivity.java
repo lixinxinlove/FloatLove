@@ -19,4 +19,13 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(this, MyService.class));
         finish();
     }
+
+    public void removeView(View v) {
+        Intent intent = new Intent(this, MyService.class);
+        intent.putExtra("key", 1);
+        startService(intent);
+        finish();
+    }
+
+
 }

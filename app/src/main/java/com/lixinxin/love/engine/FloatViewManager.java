@@ -120,4 +120,9 @@ public class FloatViewManager {
 
     }
 
+    public void removeView(){
+        wm.removeView(circleView);
+    }
+
+
 }

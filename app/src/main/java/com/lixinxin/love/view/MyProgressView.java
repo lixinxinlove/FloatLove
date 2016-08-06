@@ -38,12 +38,12 @@ public class MyProgressView extends View {
     private Path path = new Path();
 
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//        }
+//    };
 
 
     public MyProgressView(Context context) {
@@ -109,13 +109,15 @@ public class MyProgressView extends View {
 
     //单击的动画
     private void startSingleTapAnimation() {
-        handler.postDelayed(singleTapRunnable, 200);
+        postDelayed(singleTapRunnable, 200);
+        //handler.postDelayed(singleTapRunnable, 200);
     }
 
 
     //双击后的动画
     public void startDoubleTapAnimation() {
-        handler.postDelayed(doubleTapRunnable, 50);
+        postDelayed(doubleTapRunnable, 50);
+        //handler.postDelayed(doubleTapRunnable, 50);
     }
 
 
@@ -128,7 +130,7 @@ public class MyProgressView extends View {
             count--;
             if (count >= 0) {
                 invalidate();
-
+               // postInvalidate();
                 postDelayed(singleTapRunnable, 200);
                // handler.postDelayed(singleTapRunnable, 200);
             } else {
@@ -162,17 +164,18 @@ public class MyProgressView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
+        //1 画园
         bitmapCanvas.drawCircle(width / 2, height / 2, width / 2, circlePaint);
+
+
         path.reset();
-
         float y = (1 - (float) currentProgress / max) * height;
-
         path.moveTo(width, y);
         path.lineTo(width, height);
         path.lineTo(0, height);
         path.lineTo(0, y);
-
-        if (isSingleTap) {
+        if (isSingleTap) {   //单击
             float d = (float) count / 50 * 10;
             if (count % 2 == 0) {
                 for (int i = 0; i < 5; i++) {
@@ -193,8 +196,9 @@ public class MyProgressView extends View {
             }
         }
 
-
         path.close();
+
+        //2画path
         bitmapCanvas.drawPath(path, progressPaint);
 
         String text = (int) (((float) currentProgress / max * 100)) + "%";
@@ -203,6 +207,7 @@ public class MyProgressView extends View {
         Paint.FontMetrics metrics = textPaint.getFontMetrics();
         float dy = -(metrics.descent + metrics.ascent) / 2;
         float y1 = height / 2 + dy;
+        //画文本
         bitmapCanvas.drawText(text, x1, y1, textPaint);
         canvas.drawBitmap(bitmap, 0, 0, null);
     }
