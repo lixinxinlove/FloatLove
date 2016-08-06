@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.lixinxin.love.view.FloatCircleView;
 
@@ -42,28 +43,27 @@ public class FloatViewManager {
                     float dy = y - startY;
                     params.x += dx;
                     params.y += dy;
+                    circleView.setDragState(true);
                     wm.updateViewLayout(circleView, params);
                     startX = x;
                     startY = y;
                     break;
-
                 case MotionEvent.ACTION_UP:
-
                     float x1 = event.getRawX();
-                    float y1 = event.getRawY();
-
                     if (x1 > getScreenWidth() / 2) {
-                        params.x = getScreenWidth();
-                        params.y = (int) y1;
-                        wm.updateViewLayout(circleView, params);
+                        params.x = getScreenWidth() - circleView.width;
                     } else {
                         params.x = 0;
-                        params.y = (int) y1;
-                        wm.updateViewLayout(circleView, params);
                     }
-                    break;
-            }
+                    circleView.setDragState(false);
+                    wm.updateViewLayout(circleView, params);
 
+                    if (event.getRawX() - startX > 10) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+            }
             return false;
         }
     };
@@ -77,11 +77,18 @@ public class FloatViewManager {
     }
 
 
-    private FloatViewManager(Context context) {
+    private FloatViewManager(final Context context) {
         this.context = context;
         wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         circleView = new FloatCircleView(context);
         circleView.setOnTouchListener(circleViewTouchListener);
+        circleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context, "lxx", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static FloatViewManager getInstance(Context context) {

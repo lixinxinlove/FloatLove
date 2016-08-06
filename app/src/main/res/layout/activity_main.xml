@@ -9,4 +9,10 @@
         android:layout_height="wrap_content"
         android:onClick="showView"
         android:text="显示小球" />
+
+    <com.lixinxin.love.view.MyProgressView
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
+
+
 </LinearLayout>
