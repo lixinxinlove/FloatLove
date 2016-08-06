@@ -26,6 +26,7 @@ public class FloatViewManager {
     private View.OnTouchListener circleViewTouchListener = new View.OnTouchListener() {
 
         private float startX;
+        private float x0;
         private float startY;
 
         @Override
@@ -34,6 +35,7 @@ public class FloatViewManager {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     startX = event.getRawX();
+                    x0 = event.getRawX();
                     startY = event.getRawY();
                     break;
                 case MotionEvent.ACTION_MOVE:
@@ -58,7 +60,7 @@ public class FloatViewManager {
                     circleView.setDragState(false);
                     wm.updateViewLayout(circleView, params);
 
-                    if (event.getRawX() - startX > 10) {
+                    if ((Math.abs(x1 - x0)) > 6) {
                         return true;
                     } else {
                         return false;
