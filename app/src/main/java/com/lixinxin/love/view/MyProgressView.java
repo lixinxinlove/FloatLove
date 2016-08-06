@@ -78,6 +78,7 @@ public class MyProgressView extends View {
         bitmapCanvas = new Canvas(bitmap);
 
         final GestureDetector detector = new GestureDetector(new MyGestureDetectorListener());
+
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

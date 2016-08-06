@@ -88,7 +88,7 @@ public class FloatViewManager {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, "lxx", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "主人好！！！", Toast.LENGTH_SHORT).show();
             }
         });
     }
